@@ -43,49 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        
-        print("\(url.description)")
-        
-        let requestToken = BDBOAuth1Credential(queryString: url.query)
-        
-        let twitterClient = BDBOAuth1SessionManager(baseURL: NSURL(string: "https://api.twitter.com"), consumerKey: "4tagstOfbjGfp1igiZHh8VfxR", consumerSecret: "yIW6iNtKegBT9AtPWXzypeIsphDsFRgVuM4ztcyOJo4iwn0VWo")
-        
-        twitterClient.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential!) in
-            print("I got access token = \(accessToken.token)")
-            
-            // get my account
-            twitterClient.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
-                
-                let userDictionary = response as! NSDictionary
-                let user = User(dictionary: userDictionary)
-                
-                print("\(user.name!)")
-                print("\(user.screenName!)")
-                print("\(user.tagline!)")
-                print("\(user.profileImageUrl)")
-                
-                }, failure: { (task: NSURLSessionDataTask?, error: NSError) in
-                    print("\(error.localizedDescription)")
-            })
-            
-            // get home timeline
-            twitterClient.GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
-                let dictionaries = response as! [NSDictionary]
-                let tweets = Tweet.tweetsWithArray(dictionaries)
-                
-                for tweet in tweets {
-                    print(tweet.text!)
-                }
-                
-                }, failure: { (task:NSURLSessionDataTask?, error: NSError) in
-                    print("\(error.localizedDescription)")
-            })
-            
-            
-            
-        }) { (error: NSError!) in
-            print("\(error.localizedDescription)")
-        }
+        TwitterClient.shareInstance.handleOpenUrl(url)
         return true
     }
 

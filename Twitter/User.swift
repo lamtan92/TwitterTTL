@@ -18,7 +18,7 @@ class User: NSObject {
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         name = dictionary["name"] as? String
-        screenName = dictionary["screen_name"] as? String
+        screenName = "@\((dictionary["screen_name"] as? String)!)"
         tagline = dictionary["description"] as? String
         
         let profileImageURLString = dictionary["profile_image_url_https"] as? String
