@@ -38,8 +38,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
+![Demo](demo Twitter.gif)
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
